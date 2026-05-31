@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FitnessWorkoutRecordMapper">
+    
+    <resultMap type="FitnessWorkoutRecord" id="FitnessWorkoutRecordResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="workoutType"    column="workout_type"    />
+        <result property="bodyPart"    column="body_part"    />
+        <result property="aerobicType"    column="aerobic_type"    />
+        <result property="durationMinutes"    column="duration_minutes"    />
+        <result property="calories"    column="calories"    />
+        <result property="heartRateAvg"    column="heart_rate_avg"    />
+        <result property="workoutDate"    column="workout_date"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectFitnessWorkoutRecordVo">
+        select id, user_id, workout_type, body_part, aerobic_type, duration_minutes, calories, heart_rate_avg, workout_date, start_time, remark, create_by, create_time, update_by, update_time from fitness_workout_record
+    </sql>
+
+    <select id="selectFitnessWorkoutRecordList" parameterType="FitnessWorkoutRecord" resultMap="FitnessWorkoutRecordResult">
+        <include refid="selectFitnessWorkoutRecordVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="workoutType != null  and workoutType != ''"> and workout_type = #{workoutType}</if>
+            <if test="bodyPart != null  and bodyPart != ''"> and body_part = #{bodyPart}</if>
+            <if test="aerobicType != null  and aerobicType != ''"> and aerobic_type = #{aerobicType}</if>
+            <if test="durationMinutes != null "> and duration_minutes = #{durationMinutes}</if>
+            <if test="calories != null "> and calories = #{calories}</if>
+            <if test="heartRateAvg != null "> and heart_rate_avg = #{heartRateAvg}</if>
+            <if test="workoutDate != null "> and workout_date = #{workoutDate}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectFitnessWorkoutRecordById" parameterType="Long" resultMap="FitnessWorkoutRecordResult">
+        <include refid="selectFitnessWorkoutRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFitnessWorkoutRecord" parameterType="FitnessWorkoutRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into fitness_workout_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="workoutType != null and workoutType != ''">workout_type,</if>
+            <if test="bodyPart != null">body_part,</if>
+            <if test="aerobicType != null">aerobic_type,</if>
+            <if test="durationMinutes != null">duration_minutes,</if>
+            <if test="calories != null">calories,</if>
+            <if test="heartRateAvg != null">heart_rate_avg,</if>
+            <if test="workoutDate != null">workout_date,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="workoutType != null and workoutType != ''">#{workoutType},</if>
+            <if test="bodyPart != null">#{bodyPart},</if>
+            <if test="aerobicType != null">#{aerobicType},</if>
+            <if test="durationMinutes != null">#{durationMinutes},</if>
+            <if test="calories != null">#{calories},</if>
+            <if test="heartRateAvg != null">#{heartRateAvg},</if>
+            <if test="workoutDate != null">#{workoutDate},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFitnessWorkoutRecord" parameterType="FitnessWorkoutRecord">
+        update fitness_workout_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="workoutType != null and workoutType != ''">workout_type = #{workoutType},</if>
+            <if test="bodyPart != null">body_part = #{bodyPart},</if>
+            <if test="aerobicType != null">aerobic_type = #{aerobicType},</if>
+            <if test="durationMinutes != null">duration_minutes = #{durationMinutes},</if>
+            <if test="calories != null">calories = #{calories},</if>
+            <if test="heartRateAvg != null">heart_rate_avg = #{heartRateAvg},</if>
+            <if test="workoutDate != null">workout_date = #{workoutDate},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFitnessWorkoutRecordById" parameterType="Long">
+        delete from fitness_workout_record where id = #{id}
+    </delete>
+
+    <delete id="deleteFitnessWorkoutRecordByIds" parameterType="String">
+        delete from fitness_workout_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
